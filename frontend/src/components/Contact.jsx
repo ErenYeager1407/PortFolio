@@ -4,6 +4,8 @@ import { FiSend, FiMail, FiPhone, FiMapPin, FiCheckCircle } from 'react-icons/fi
 import axios from 'axios'
 import './Contact.css'
 
+const API_BASE = import.meta.env.VITE_API_URL || ''
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState(null) // 'sending' | 'success' | 'error'
@@ -17,7 +19,7 @@ export default function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
-      await axios.post('/api/contact', form)
+      await axios.post(`${API_BASE}/api/contact`, form)
       setStatus('success')
       setForm({ name: '', email: '', subject: '', message: '' })
       setTimeout(() => setStatus(null), 5000)

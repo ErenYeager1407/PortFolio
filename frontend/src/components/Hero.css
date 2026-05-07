@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
   position: relative;
   padding: 120px 24px 80px;
   overflow: hidden;
@@ -45,10 +44,22 @@
   66% { transform: translate(-20px, 20px); }
 }
 
-.hero__content {
+/* Two-column inner layout */
+.hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  max-width: var(--max-width);
+  width: 100%;
   position: relative;
   z-index: 1;
-  max-width: 800px;
+}
+
+.hero__content {
+  flex: 1;
+  max-width: 600px;
+  text-align: left;
 }
 
 .hero__greeting {
@@ -115,7 +126,7 @@
   font-size: 1.1rem;
   line-height: 1.8;
   max-width: 600px;
-  margin: 0 auto 36px;
+  margin-bottom: 36px;
 }
 
 .hero__tagline strong {
@@ -125,7 +136,6 @@
 .hero__actions {
   display: flex;
   gap: 16px;
-  justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 48px;
 }
@@ -133,7 +143,6 @@
 .hero__socials {
   display: flex;
   gap: 16px;
-  justify-content: center;
 }
 
 .hero__social-link {
@@ -157,6 +166,94 @@
   box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
 }
 
+/* ===== PROFILE PHOTO ===== */
+.hero__photo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero__photo-wrapper {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 40px rgba(0, 212, 255, 0.15),
+    0 0 80px rgba(124, 58, 237, 0.1),
+    inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: contrast(1.05) brightness(1.05);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.hero__photo-container:hover .hero__photo {
+  transform: scale(1.05);
+  filter: contrast(1.1) brightness(1.1);
+}
+
+/* Animated gradient ring */
+.hero__photo-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-cyan),
+    var(--accent-violet),
+    var(--accent-pink),
+    var(--accent-cyan)
+  );
+  animation: ring-spin 6s linear infinite;
+  opacity: 0.6;
+}
+
+.hero__photo-ring--2 {
+  inset: -12px;
+  opacity: 0.2;
+  animation: ring-spin 8s linear infinite reverse;
+  filter: blur(8px);
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Glow effect behind the photo */
+.hero__photo-glow {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 0.2) 0%,
+    rgba(124, 58, 237, 0.1) 40%,
+    transparent 70%
+  );
+  z-index: 0;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Scroll indicator */
 .hero__scroll-indicator {
   position: absolute;
   bottom: 32px;
@@ -164,6 +261,48 @@
   font-size: 1.2rem;
 }
 
+/* ===== RESPONSIVE ===== */
+@media (max-width: 968px) {
+  .hero__inner {
+    flex-direction: column-reverse;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero__content {
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__socials {
+    justify-content: center;
+  }
+
+  .hero__photo-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  .hero__photo-glow {
+    width: 300px;
+    height: 300px;
+  }
+}
+
 @media (max-width: 480px) {
   .hero__actions { flex-direction: column; align-items: center; }
+
+  .hero__photo-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero__photo-glow {
+    width: 240px;
+    height: 240px;
+  }
 }
