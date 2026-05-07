@@ -34,8 +34,14 @@ export default function Navbar() {
   }, [])
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     setMobileOpen(false)
+    setTimeout(() => {
+      const element = document.getElementById(id)
+      if (element) {
+        const offset = element.getBoundingClientRect().top + window.scrollY - 80 // 80px for navbar offset
+        window.scrollTo({ top: offset, behavior: 'smooth' })
+      }
+    }, 150) // Slight delay to ensure the menu closing animation doesn't interfere with scroll calculation
   }
 
   return (

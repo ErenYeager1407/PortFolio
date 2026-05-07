@@ -16,6 +16,8 @@ const projects = [
       'Axios integration with error handling & protected routes',
     ],
     color: '#00d4ff',
+    github: 'https://github.com/ErenYeager1407/NextHire',
+    live: 'https://next-hire-psi.vercel.app/',
   },
   {
     title: 'Expense Tracker',
@@ -27,6 +29,7 @@ const projects = [
       'Responsive React UI with reusable components',
     ],
     color: '#10b981',
+    github: 'https://github.com/ErenYeager1407/Expense-Tracker',
   },
 ]
 
@@ -63,12 +66,16 @@ export default function Projects() {
                   {project.title}
                 </h3>
                 <div className="projects__card-links">
-                  <button className="projects__link" aria-label="View code">
-                    <FiGithub />
-                  </button>
-                  <button className="projects__link" aria-label="Live demo">
-                    <FiExternalLink />
-                  </button>
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer" className="projects__link" aria-label="View code">
+                      <FiGithub />
+                    </a>
+                  )}
+                  {project.live && (
+                    <a href={project.live} target="_blank" rel="noreferrer" className="projects__link" aria-label="Live demo">
+                      <FiExternalLink />
+                    </a>
+                  )}
                 </div>
               </div>
 
